@@ -1,0 +1,21 @@
+{
+    "name": "mule-module-github-smart-connector",
+    "minMuleVersion": "4.0.0-M5-RC-SNAPSHOT",
+    "bundleDescriptorLoader": {
+        "id": "maven",
+        "attributes": {}
+    },
+    "classLoaderModelLoaderDescriptor": {
+        "id": "maven",
+        "attributes": {
+        "exportedPackages": [],
+        "exportedResources": ["/META-INF/"]
+        }
+    },
+    "extensionModelLoaderDescriptor": {
+        "id": "xml-based",
+        "attributes": {
+            "resource-xml": "mule-module-github.xml"
+        }
+    }
+}
