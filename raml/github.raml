@@ -1,0 +1,40 @@
+#%RAML 1.0
+title: GitHub
+baseUri: https://api.github.com
+securitySchemes:
+    basic:
+        type: Basic Authentication
+
+types:
+  IssueSearchResult:
+    schema: !include schemas/get-issues-return-schema.json
+
+/search:
+  /issues:
+    get:
+      queryParameters:
+        q:
+          displayName: Query
+          description: |
+            The search terms.
+          type: string
+          required: true
+        sort:
+          displayName: Sort
+          description: |
+            The sort field. Can be comments, created, or updated. Default: results are sorted by best match.
+          type: string
+          required: false
+        order:
+          displayName: Order
+          description: |
+            The sort order if sort parameter is provided. One of asc or desc. Default: desc
+          type: string
+          required: false
+      responses:
+        200:
+          description: |
+            Successful call
+          body:
+            application/json:
+              type: IssueSearchResult
