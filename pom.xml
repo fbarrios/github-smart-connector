@@ -1,39 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.mule.modules.extensions</groupId>
+    <groupId>extensions</groupId>
     <artifactId>mule-module-github</artifactId>
-    <version>1.0.0-M5.1</version>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>mule-extension</packaging>
 
-    <name>Github</name>
-    <description></description>
+    <name>GitHub Smart Connector</name>
+    <description>A Mule extension done with pure Mule DSL</description>
 
     <properties>
-        <mule.extensions.maven.plugin.version>1.0.0-M5.1</mule.extensions.maven.plugin.version>
-        <extension.documentation.maven.plugin.version>1.0.0-M5.1</extension.documentation.maven.plugin.version>
-        <mule.version>4.0.0-M5.1</mule.version>
+        <mule.extensions.maven.plugin.version>1.0.0-SNAPSHOT</mule.extensions.maven.plugin.version>
+        <mule.version>4.0.0-SNAPSHOT</mule.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.modules</groupId>
+            <groupId>org.mule.runtime</groupId>
             <artifactId>mule-module-extensions-xml-support</artifactId>
             <version>${mule.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-http-ext</artifactId>
-            <version>${mule.version}</version>
-            <classifier>mule-plugin</classifier>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-sockets</artifactId>
-            <version>${mule.version}</version>
+            <groupId>org.mule.connectors</groupId>
+            <artifactId>mule-http-connector</artifactId>
+            <version>${mule.extensions.maven.plugin.version}</version>
             <classifier>mule-plugin</classifier>
             <scope>provided</scope>
         </dependency>
@@ -42,7 +35,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.mule.extensions</groupId>
+                <groupId>org.mule.runtime.plugins</groupId>
                 <artifactId>mule-extensions-maven-plugin</artifactId>
                 <version>${mule.extensions.maven.plugin.version}</version>
                 <extensions>true</extensions>
@@ -62,7 +55,7 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.mule.extensions</groupId>
+                        <groupId>org.mule.runtime.plugins</groupId>
                         <artifactId>mule-extensions-maven-plugin</artifactId>
                         <version>${mule.extensions.maven.plugin.version}</version>
                         <executions>
