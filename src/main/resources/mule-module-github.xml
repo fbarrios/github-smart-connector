@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module
-    name="github-module"
+    name="github"
+    namespace="http://www.mulesoft.org/schema/mule/github"
     minMuleVersion="4.0.0-SNAPSHOT"
-    namespace="http://www.mulesoft.org/schema/mule/github-module"
     xmlns="http://www.mulesoft.org/schema/mule/module"
     xmlns:mule="http://www.mulesoft.org/schema/mule/core"
     xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
     xmlns:http="http://www.mulesoft.org/schema/mule/http"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
-        http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
-        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
+           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+           http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 
-    <property name="baseUri" type="string"/>
+    <property name="host" type="string" defaultValue="api.github.com"/>
+    <property name="port" type="string" defaultValue="443"/>
+    <property name="basePath" type="string" defaultValue="/v3"/>
+
     <property name="username" type="string"/>
     <property name="password" type="string" password="true"/>
 
-    <http:request-config name="github-httpreq-config" basePath="/">
-        <http:request-connection host="api.github.com" protocol="HTTPS" port="443">
+    <http:request-config name="github-httpreq-config" basePath="#[properties.basePath]">
+        <http:request-connection host="#[properties.host]" protocol="HTTPS" port="#[properties.port]">
             <http:authentication>
-                <http:basic-authentication username="#[mel:property.username]" password="#[mel:property.password]"/>
+                <http:basic-authentication username="#[properties.username]" password="#[properties.password]"/>
             </http:authentication>
         </http:request-connection>
     </http:request-config>
@@ -28,15 +31,13 @@
     <operation name="get-issues">
         <parameters>
             <parameter name="q" type="string" doc:description="The search terms."/>
-
-            <!-- These are ignored in the request for the moment. -->
-            <parameter name="sort" type="string" doc:description="The sort field. Can be comments, created, or updated. Default: results are sorted by best match."/>
-            <parameter name="order" type="string" doc:description="The sort order if sort parameter is provided. One of asc or desc. Default: desc"/>
+            <parameter name="sort" type="string" doc:description="The sort field. Can be comments, created, or updated. Default: results are sorted by best match." use="OPTIONAL"/>
+            <parameter name="order" type="string" doc:description="The sort order if sort parameter is provided. One of asc or desc. Default: desc" use="OPTIONAL"/>
         </parameters>
         <body>
-            <http:request config-ref="github-module-httpreq-config" path="/search/issues" method="GET">
+            <http:request config-ref="github-httpreq-config" path="/search/issues" method="GET">
                 <http:query-params>
-                    #[mel:['q' : param.q]]
+                    #[parameters mapObject '$$': '$']
                 </http:query-params>
             </http:request>
             <mule:set-payload value="#[payload]" mimeType="application/json"/>
