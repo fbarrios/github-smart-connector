@@ -30,7 +30,7 @@
             <artifactId>mule-http-connector</artifactId>
             <version>${mule.extensions.version}</version>
             <classifier>mule-plugin</classifier>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

@@ -16,12 +16,13 @@
     <property name="host" type="string" defaultValue="api.github.com"/>
     <property name="port" type="string" defaultValue="443"/>
     <property name="basePath" type="string" defaultValue="/v3"/>
+    <property name="protocol" type="string" defaultValue="HTTPS"/>
 
     <property name="username" type="string"/>
     <property name="password" type="string" password="true"/>
 
     <http:request-config name="github-httpreq-config" basePath="#[properties.basePath]">
-        <http:request-connection host="#[properties.host]" protocol="HTTPS" port="#[properties.port]">
+        <http:request-connection host="#[properties.host]" protocol="#[properties.protocol]" port="#[properties.port]">
             <http:authentication>
                 <http:basic-authentication username="#[properties.username]" password="#[properties.password]"/>
             </http:authentication>
